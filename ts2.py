@@ -239,7 +239,7 @@ def orcale_bid(self_bid, max_other_bid, true_mu, true_sigma, r):
     const_ps_cum = np.cumsum(const_ps)
     const_margin_cum = np.cumsum(const_margin)
     const_win_cum = np.cumsum(const_win)
-    return const_win, const_ps_cum, const_margin_cum
+    return const_win_cum, const_ps_cum, const_margin_cum
 
  
 def simulate_auction2(self_bid, max_other_bid, r):
