@@ -230,13 +230,16 @@ def orcale_bid_cnst(self_bid, max_other_bid, true_mu, true_sigma, r):
 def orcale_bid(self_bid, max_other_bid, true_mu, true_sigma, r):
     const_ps = []
     const_margin = []
+    const_win = []
     for i in range(len(self_bid)):
         opt_bid_o = grid_search2(self_bid[i], true_mu, true_sigma, r)
         const_ps.append(self_bid[i] if opt_bid_o > max_other_bid[i] else 0)
         const_margin.append(self_bid[i] - opt_bid_o if const_ps[i] > 0 else 0)
+        const_win.append(1 if opt_bid_o > max_other_bid[i] else 0)
     const_ps_cum = np.cumsum(const_ps)
     const_margin_cum = np.cumsum(const_margin)
-    return const_ps_cum[-1], const_margin_cum[-1]
+    const_win_cum = np.cumsum(const_win)
+    return const_win, const_ps_cum, const_margin_cum
 
  
 def simulate_auction2(self_bid, max_other_bid, r):
